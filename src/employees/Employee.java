@@ -1,3 +1,7 @@
+package employees;
+
+import java.util.Date;
+
 public class Employee {
     private int id;
     private String firstName;
@@ -6,9 +10,9 @@ public class Employee {
     private String email;
     private String phoneNumber;
     private double salary;
-    private String job;
-    private String hireDate;
-    private String department;
+    private Job job;
+    private Date hireDate;
+    private Department department;
 
     @Override
     public String toString() {
@@ -16,7 +20,7 @@ public class Employee {
     }
 
     //Constructor inicial
-    public Employee(String firstName, String lastName, String email, String phoneNumber, String job, String hireDate, String department) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, Job job, Date hireDate, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -87,27 +91,27 @@ public class Employee {
         this.salary = s;
     }
     
-    public String getJob() {
+    public Job getJob() {
         return job;
     }
     
-    public void setJob(String j) {
+    public void setJob(Job j) {
         this.job = j;
     }
     
-    public String getHireDate() {
+    public Date getHireDate() {
         return hireDate;
     }
     
-    public void setHireDate(String hd) {
+    public void setHireDate(Date hd) {
         this.hireDate = hd;
     }
     
-    public String getDepartment() {
+    public Department getDepartment() {
         return department;
     }
     
-    public void setDepartment(String d) {
+    public void setDepartment(Department d) {
         this.department = d;
     } 
 }
