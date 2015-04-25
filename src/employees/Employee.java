@@ -20,7 +20,7 @@ public class Employee {
     }
 
     //Constructor inicial
-    public Employee(String firstName, String lastName, String email, String phoneNumber, Job job, Date hireDate, Department department) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
