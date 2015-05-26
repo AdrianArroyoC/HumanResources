@@ -20,14 +20,15 @@ public class Employee {
     }
 
     //Constructor inicial
-    public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
+    //public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.job = job;
         this.hireDate = hireDate;
-        this.department = department;
+        //this.department = department;
     }
     
     public int getId() {
@@ -88,7 +89,14 @@ public class Employee {
     }
     
     public void setSalary(double s) {
-        this.salary = s;
+        if (s < this.job.getMinSalary()) {
+            this.salary = this.job.getMinSalary();
+        } else if (s > this.job.getMaxSalary()){
+            this.salary = this.job.getMaxSalary();
+        } else {
+            this.salary = s;
+        }
+        
     }
     
     public Job getJob() {
@@ -112,6 +120,12 @@ public class Employee {
     }
     
     public void setDepartment(Department d) {
+        //piensa para uno despues para dos y para n
+        //agregar este empelado al departamento 
+        //redimensionarlo
+        //arraycopy
+        //lista de empleados null
+        //debe tener la capacidad de implementar esa lista
         this.department = d;
     } 
 }
