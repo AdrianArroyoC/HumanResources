@@ -95,12 +95,11 @@ public class Employee {
             this.salary = this.job.getMaxSalary();
         } else {
             this.salary = s;
-        }
-        
+        } 
     }
     
-    public Job getJob() {
-        return job;
+    public String getJob() {
+        return job.getTitle(); //Corrección
     }
     
     public void setJob(Job j) {
@@ -126,6 +125,16 @@ public class Employee {
         //arraycopy
         //lista de empleados null
         //debe tener la capacidad de implementar esa lista
+        if (d.employeeList[0] == null) {
+            System.out.println(this);
+            d.employeeList[0] = this;
+        } else {
+            Employee [] auxList = new Employee[d.employeeList.length+1];
+            System.arraycopy(d.employeeList, 0, auxList, 0, d.employeeList.length);
+            auxList[auxList.length-1] = this;
+            d.employeeList = new Employee[auxList.length];
+            d.employeeList = auxList;
+        }
         this.department = d;
     } 
 }

@@ -82,10 +82,7 @@ public class TestEmployee {
             //Dpartamento
             //Job
             //Salario
-            /*System.out.println(emp.getFirstName() + " " + emp.getLastName());
-            System.out.println(emp.getDepartment());
-            System.out.println(emp.getJob());
-            System.out.println(emp.getSalary());*/
+            System.out.println(emp.getFirstName() + " " + emp.getLastName() + ", " +emp.getDepartment() + ", " + emp.getJob() + ", " + emp.getSalary());
         }
         }
 }
