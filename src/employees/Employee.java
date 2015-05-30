@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Employee {
-    private int id;
+public abstract class Employee { //Si es final no hereda
+    private final int id;
     private String firstName;
     private String lastName;
     private int age;
@@ -15,13 +15,16 @@ public class Employee {
     private Job job;
     private Date hireDate;
     private Department department;
+    private static int counter;
+    
+    static {
+        counter = 0;
+    }
 
     //Constructor inicial
     //public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
     public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
         this(firstName, lastName, email, phoneNumber, hireDate, job);
-//        this.department = department;
-
         this.setDepartment(department);
     }
     
@@ -32,15 +35,16 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.job = job;
         this.hireDate = hireDate;
+        this.id = counter++;
     }
     
     public int getId() {
         return id;
     }
     
-    public void setId(int i) {
-        this.id = i;
-    }
+//    public void setId(int i) {
+//        this.id = i;
+//    }
     
     public String getFirstName() {
         return firstName;
@@ -122,6 +126,8 @@ public class Employee {
     }
     
     public void setDepartment(Department d) {
+        
+        this.department = d;
         //piensa para uno despues para dos y para n
         //agregar este empelado al departamento 
         //redimensionarlo
@@ -138,7 +144,6 @@ public class Employee {
             d.employeeList = new Employee[auxList.length];
             d.employeeList = auxList;
         }
-        this.department = d;
 //        Employee [] aux = this.department.getEmployeeList();
 //        if (aux == null) {
 //            aux = new Employee[1];
@@ -168,6 +173,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" + "firstName=" + firstName + ", lastName=" + lastName + ", salary=" + salary + ", department=" + department + '}';
+        return "ID:"+ id +" " + firstName + " " + lastName + " " + salary + " " + department;
     }
 }
