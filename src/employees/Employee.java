@@ -1,6 +1,8 @@
 package employees;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Employee {
     private int id;
@@ -14,13 +16,15 @@ public class Employee {
     private Date hireDate;
     private Department department;
 
-    @Override
-    public String toString() {
-        return "Employee{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email=" + email + ", phoneNumber=" + phoneNumber + ", salary=" + salary + ", job=" + job + ", hireDate=" + hireDate + ", department=" + department + '}';
-    }
-
     //Constructor inicial
     //public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
+    public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
+        this(firstName, lastName, email, phoneNumber, hireDate, job);
+//        this.department = department;
+
+        this.setDepartment(department);
+    }
+    
     public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,7 +32,6 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.job = job;
         this.hireDate = hireDate;
-        //this.department = department;
     }
     
     public int getId() {
@@ -88,7 +91,7 @@ public class Employee {
         return salary;
     }
     
-    public void setSalary(double s) {
+    protected void setSalary(double s) {
         if (s < this.job.getMinSalary()) {
             this.salary = this.job.getMinSalary();
         } else if (s > this.job.getMaxSalary()){
@@ -136,5 +139,35 @@ public class Employee {
             d.employeeList = auxList;
         }
         this.department = d;
+//        Employee [] aux = this.department.getEmployeeList();
+//        if (aux == null) {
+//            aux = new Employee[1];
+//            aux[0] = this;
+//            this.department.setEmployeeList(aux);
+//        } else {
+//            Employee[] temp = new Employee[aux.length + 1];
+//            System.arraycopy(aux, 0, temp, 0, aux.length);
+//            temp[aux.length] = this;
+//            this.department.setEmployeeList(temp);
+//        }
     } 
+    
+        //Evaluar de der-izq
+    public String getDetails() { //Object o String
+        return "Full name: " + firstName + " " + lastName + ", Department: " 
+                + department.getName() + ", Salary: $" + salary + ", Phone Number: " 
+                + phoneNumber;
+    }
+   
+    
+    //Si los dos fueran private no seria herencia aunque fuera del mismo modificador si no que seria otro metodo implementado
+    
+//    protected static void method(){
+//        
+//    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "firstName=" + firstName + ", lastName=" + lastName + ", salary=" + salary + ", department=" + department + '}';
+    }
 }
