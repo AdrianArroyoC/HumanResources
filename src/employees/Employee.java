@@ -1,178 +1,199 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package employees;
 
+import exceptions.IllegalAgeException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
+import java.lang.IllegalArgumentException;
+import java.io.Serializable;
 
-public abstract class Employee { //Si es final no hereda
-    private final int id;
+/**
+ *
+ * @author Humberto
+ */
+public class Employee implements Comparable, Serializable{
+
+    private final int ID;
     private String firstName;
     private String lastName;
     private int age;
     private String email;
     private String phoneNumber;
-    private double salary;
-    private Job job;
     private Date hireDate;
+    private Job job;
+    private double salary;
     private Department department;
     private static int counter;
-    
+
     static {
         counter = 0;
     }
 
-    //Constructor inicial
-    //public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
     public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, Department department) {
         this(firstName, lastName, email, phoneNumber, hireDate, job);
-        this.setDepartment(department);
+        this.department = department;
     }
-    
+
     public Employee(String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.job = job;
         this.hireDate = hireDate;
-        this.id = counter++;
+        this.job = job;
+        this.ID = counter++;
     }
-    
+
     public int getId() {
-        return id;
+        return ID;
     }
-    
-//    public void setId(int i) {
-//        this.id = i;
-//    }
-    
+
     public String getFirstName() {
         return firstName;
     }
-    
-    public void setFirstName(String fn) {
-        this.firstName = fn;
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-    
+
     public String getLastName() {
         return lastName;
     }
-    
-    public void setLastName(String ln) {
-        this.lastName = ln;
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-    
-    public int getAge() {
-        return age;
-    }
-    
-    public boolean setAge(int a) {     
-        boolean resultado = false;
-        if (a >= 18) {
-            resultado = true;
-            this.age = a;
-        }
-        return resultado;          
-    }
-    
+
     public String getEmail() {
         return email;
     }
-    
-    public void setEmail(String e) {
-        this.email = e;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    
-    public void setPhoneNumber(String pn) {
-        this.phoneNumber = pn;
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
-    
-    public double getSalary() {
-        return salary;
-    }
-    
-    protected void setSalary(double s) {
-        if (s < this.job.getMinSalary()) {
-            this.salary = this.job.getMinSalary();
-        } else if (s > this.job.getMaxSalary()){
-            this.salary = this.job.getMaxSalary();
-        } else {
-            this.salary = s;
-        } 
-    }
-    
-    public String getJob() {
-        return job.getTitle(); //Corrección
-    }
-    
-    public void setJob(Job j) {
-        this.job = j;
-    }
-    
+
     public Date getHireDate() {
         return hireDate;
     }
-    
-    public void setHireDate(Date hd) {
-        this.hireDate = hd;
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
-    
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    protected void setSalary(double salary) {
+        if (salary > this.getJob().getMaxSalary()) {
+            salary = this.getJob().getMaxSalary();
+        } else if (salary < this.getJob().getMinSalary()) {
+            salary = this.getJob().getMinSalary();
+        }
+        this.salary = salary;
+    }
+
     public Department getDepartment() {
         return department;
     }
-    
-    public void setDepartment(Department d) {
-        
-        this.department = d;
-        //piensa para uno despues para dos y para n
-        //agregar este empelado al departamento 
-        //redimensionarlo
-        //arraycopy
-        //lista de empleados null
-        //debe tener la capacidad de implementar esa lista
-        if (d.employeeList[0] == null) {
-            System.out.println(this);
-            d.employeeList[0] = this;
-        } else {
-            Employee [] auxList = new Employee[d.employeeList.length+1];
-            System.arraycopy(d.employeeList, 0, auxList, 0, d.employeeList.length);
-            auxList[auxList.length-1] = this;
-            d.employeeList = new Employee[auxList.length];
-            d.employeeList = auxList;
-        }
-//        Employee [] aux = this.department.getEmployeeList();
-//        if (aux == null) {
-//            aux = new Employee[1];
-//            aux[0] = this;
-//            this.department.setEmployeeList(aux);
+
+    public void setDepartment(Department department) {
+        this.department = department;
+//        Employee[] employeeList = department.getEmloyeeList();
+//        if (employeeList != null) {
+//            Employee[] aux = new Employee[employeeList.length + 1];
+//            System.arraycopy(employeeList, 0, aux, 0, employeeList.length);
+//            aux[aux.length - 1] = this;
+//            this.getDepartment().setEmloyeeList(aux);
 //        } else {
-//            Employee[] temp = new Employee[aux.length + 1];
-//            System.arraycopy(aux, 0, temp, 0, aux.length);
-//            temp[aux.length] = this;
-//            this.department.setEmployeeList(temp);
+//            employeeList = new Employee[1];
+//            employeeList[0] = this;
+//            this.getDepartment().setEmloyeeList(employeeList);
 //        }
-    } 
-    
-        //Evaluar de der-izq
-    public String getDetails() { //Object o String
-        return "Full name: " + firstName + " " + lastName + ", Department: " 
-                + department.getName() + ", Salary: $" + salary + ", Phone Number: " 
-                + phoneNumber;
+        if (this.department.getEmloyeeList() == null) {
+            this.department.setEmloyeeList(new ArrayList());
+        } 
+        this.department.getEmloyeeList().add(this);
     }
-   
-    
-    //Si los dos fueran private no seria herencia aunque fuera del mismo modificador si no que seria otro metodo implementado
-    
-//    protected static void method(){
-//        
-//    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) throws IllegalAgeException {
+        if (age >= 18) {
+            this.age = age;
+        } else {
+            throw new IllegalAgeException(age,this);
+        }
+        
+    }
 
     @Override
     public String toString() {
-        return "ID:"+ id +" " + firstName + " " + lastName + " " + salary + " " + department;
+        return "ID: " + ID + ", Full name: " + lastName + " " + firstName
+                + ", Department: " + department.getName() + ", Salary: $"
+                + salary + ", PhoneNumber: " + phoneNumber;
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        int result = -1;
+        if(t != null && t instanceof Employee) {
+            Employee other = (Employee) t;
+            if(this.ID < other.ID) {
+                result = -1;
+            } else if (this.ID > other.ID){
+                result = 1;
+            } else {
+                result = 0;
+            }
+        } else {
+            throw new IllegalArgumentException("Objeto Nulo o No compatible");
+        }
+        return result;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + this.ID;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (getClass() != o.getClass()) {
+            return false;
+        }
+        final Employee other = (Employee) o;
+        if (this.hashCode() != other.hashCode()) {
+            return false;
+        }
+        return true;
     }
 }
